@@ -26,7 +26,6 @@ public class Movements : MonoBehaviour
         canFly = false;
         HeliRotate = false;
         
-
     }
 
     // Update is called once per frame
@@ -69,9 +68,17 @@ public class Movements : MonoBehaviour
             Rotor.transform.Rotate(new Vector3(0f, rotSpeed * Time.deltaTime, 0f));
             Rotor2.transform.Rotate(new Vector3(0f, rotSpeed * Time.deltaTime, 0f));
         }
+        
 
-        _rigidbody.velocity = new Vector3(xSpeed, 0f, zSpeed);
-        _rigidbody.AddForce(xSpeed, 0f, zSpeed);
+
+        Vector3 locVel = transform.InverseTransformDirection(_rigidbody.velocity); // 월드 -> 로컬
+        locVel.x = xSpeed;
+        locVel.z = zSpeed;
+        _rigidbody.velocity = transform.TransformDirection(locVel); // 로컬 -> 월드
+
+
+        // _rigidbody.velocity = new Vector3(xSpeed, 0f, zSpeed);
+        // _rigidbody.AddForce(xSpeed, 0f, zSpeed);
 
         if(canFly && _input.flyToTheSky)
         {
