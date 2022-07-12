@@ -13,6 +13,8 @@ public class Movements : MonoBehaviour
 
     private float rotSpeed = 10f;
     private bool RotorOn = false;
+    private float xSpeed;
+    private float zSpeed;
 
     public float Speed = 1f;
     public float flySpeed = 15f;
@@ -31,8 +33,7 @@ public class Movements : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float xSpeed = _input.X * Speed;
-        float zSpeed = _input.Z * Speed;
+        
 
         if(_input.isEngineOn)
         {
@@ -52,7 +53,8 @@ public class Movements : MonoBehaviour
             Rotor.transform.Rotate(new Vector3(0f, rotSpeed * Time.deltaTime, 0f));
             Rotor2.transform.Rotate(new Vector3(0f, rotSpeed * Time.deltaTime, 0f));
 
-            
+            xSpeed = _input.X * Speed;
+            zSpeed = _input.Z * Speed;
         }
         
         if(RotorOn == false)
